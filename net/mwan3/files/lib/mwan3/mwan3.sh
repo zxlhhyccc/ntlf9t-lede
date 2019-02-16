@@ -674,6 +674,7 @@ mwan3_set_user_iptables_rule()
 	config_get dest_port $1 dest_port 0:65535
 	config_get use_policy $1 use_policy
 	config_get family $1 family any
+	ipset2=$ipset
 
 	if [ "$1" != $(echo "$1" | cut -c1-15) ]; then
 		$LOG warn "Rule $1 exceeds max of 15 chars. Not setting rule" && return 0
@@ -706,6 +707,10 @@ mwan3_set_user_iptables_rule()
 
 					$IPT -F mwan3_rule_$1
 				done
+
+				if  [ -n "$ipset2" ] ;then
+					$IPS -! create $ipset2 hash:net
+				fi
 
 				$IPS -! create mwan3_sticky_v4_$rule hash:ip,mark markmask $MMX_MASK timeout $timeout
 				$IPS -! create mwan3_sticky_v6_$rule hash:ip,mark markmask $MMX_MASK timeout $timeout family inet6
