@@ -134,8 +134,8 @@ o:depends("task_speed_limit", "1")
 o = s:taboption("task", Value, "max_concurrent_downloads", translate("Max concurrent downloads"))
 o.placeholder = "5"
 
-o = s:taboption("task", Value, "max_connection_per_server", translate("Max connection per server"), "1-16")
-o.datetype = "range(1, 16)"
+o = s:taboption("task", Value, "max_connection_per_server", translate("Max connection per server"), "1-128")
+o.datetype = "range(1, 128)"
 o.placeholder = "1"
 
 o = s:taboption("task", Value, "min_split_size", translate("Min split size"), "1M-1024M")
@@ -169,6 +169,26 @@ o = s:taboption("bittorrent", Value, "bt_max_peers", translate("Max number of pe
 o.placeholder = "55"
 
 bt_tracker_enable = s:taboption("bittorrent", Flag, "bt_tracker_enable", translate("Additional Bt tracker enabled"))
+
+updatead = s:taboption("bittorrent", Flag, "auto_update", translate("Auto Update"), translate("Additional Bt tracker lists need to be updated by filling in an arbitrary value"))
+updatead.rmempty = false
+updatead:depends("bt_tracker_enable", "1")
+
+updatead = s:taboption("bittorrent", ListValue, "auto_update_time", translate("Update time (every day)"))
+for t = 0,23 do
+updatead:value(t, t..":00")
+end
+updatead:depends("auto_update", "1")
+updatead.default=2
+
+updatead = s:taboption("bittorrent", Button, "updatead", translate("Manually force update bt_tracker"), translate("Note: It needs to download and convert the rules. The background process may takes 60-120 seconds to run. <br / > After completed it would automatically refresh, please do not duplicate click!"))
+updatead.inputtitle = translate("Manually force update bt_tracker")
+updatead.inputstyle = "apply"
+updatead.write = function()
+	sys.call("nohup sh /etc/aria2/up-trackert.sh > /tmp/up-trackert.log 2>&1 &")
+end
+updatead:depends("bt_tracker_enable", "1")
+
 bt_tracker = s:taboption("bittorrent", DynamicList, "bt_tracker", translate("List of additional Bt tracker"))
 bt_tracker:depends("bt_tracker_enable", "1")
 bt_tracker.rmempty = true

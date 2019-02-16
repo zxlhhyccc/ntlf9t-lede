@@ -3862,6 +3862,43 @@ msgstr "是"
 msgid "« Back"
 msgstr "« 后退"
 
+msgid "Swap"
+msgstr "虚拟内存"
+
+msgid "ZRam Settings"
+msgstr "ZRam 设置"
+
+msgid "ZRam Size"
+msgstr "ZRam 大小"
+
+msgid "Size of the ZRam device in megabytes"
+msgstr "划分给ZRam分区的内存大小"
+
+msgid "ZRam Compression Algorithm"
+msgstr "ZRam压缩算法(推荐LZ4)"
+
+msgid "ZRam Compression Streams"
+msgstr "ZRam压缩数据流 线程"
+
+msgid "Number of parallel threads used for compression"
+msgstr "用于压缩的CPU并发线程数"
+
+msgid "Firmware-Update"
+msgstr "固件更新"
+
+msgid "Local weather"
+msgstr "本地天气"
+
+msgid "Weather"
+msgstr "天气"
+
+msgid "Core"
+msgstr "核心"
+
+msgid "Thread"
+msgstr "线程"
+
+
 #~ msgid "Action"
 #~ msgstr "动作"
 
