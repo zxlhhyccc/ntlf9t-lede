@@ -8,13 +8,13 @@
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=tvheadend
-PKG_VERSION:=4.0.10
+PKG_VERSION:=4.3
+PKG_REV=8ff1555
 PKG_RELEASE:=1
 
 PKG_SOURCE_SUBDIR:=$(PKG_NAME)
-PKG_SOURCE_VERSION:=v$(PKG_VERSION)
-PKG_SOURCE:=$(PKG_NAME)-$(PKG_SOURCE_VERSION).tar.xz
-PKG_MIRROR_HASH:=afe42bcf683e8576ca8ccd4755ea308f79195e92f7c30fc5961973e238f49105
+PKG_SOURCE_VERSION:=$(PKG_REV)
+PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION)-r$(PKG_REV).tar.gz
 PKG_SOURCE_PROTO:=git
 PKG_SOURCE_URL:=https://github.com/tvheadend/tvheadend.git
 PKG_BUILD_DIR:=$(BUILD_DIR)/$(PKG_NAME)
@@ -33,7 +33,7 @@ define Package/tvheadend
   SECTION:=multimedia
   CATEGORY:=Multimedia
   TITLE:=Tvheadend is a TV streaming server for Linux
-  DEPENDS:=+libopenssl +librt +zlib +TVHEADEND_AVAHI_SUPPORT:libavahi-client $(ICONV_DEPENDS)
+  DEPENDS:=+libopenssl +librt +zlib +libpcre +libpcre2 +TVHEADEND_AVAHI_SUPPORT:libavahi-client $(ICONV_DEPENDS)
   URL:=https://tvheadend.org
   MAINTAINER:=Jan Čermák <jan.cermak@nic.cz>
 endef
@@ -72,15 +72,35 @@ endif
 
 CONFIGURE_ARGS += \
 	--arch=$(ARCH) \
+        --disable-dvbscan \
 	--disable-dbus_1 \
 	--disable-libav \
-	--enable-bundle
-
-TARGET_CFLAGS += -Wno-error=pointer-compare
+	--enable-bundle \
+        --disable-dvbscan \
+        --disable-avahi \
+        --disable-hdhomerun_static \
+        --disable-pie \
+        --disable-imagecache \
+        --disable-ffmpeg_static \
+        --disable-libx264 \
+        --disable-libx264_static \
+        --disable-libx265 \
+        --disable-libx265_static \
+        --disable-libvpx \
+        --disable-libvpx_static \
+        --disable-libtheora \
+        --disable-libtheora_static \
+        --disable-libvorbis \
+        --disable-libvorbis_static \
+        --disable-libfdkaac \
+        --disable-libfdkaac_static \
+        --disable-nvenc \
+        --disable-libmfx_static \
+        --disable-timeshift
 
 define Build/Prepare
 	$(call Build/Prepare/Default)
-	echo 'Tvheadend $(shell echo $(PKG_SOURCE_VERSION) | sed "s/^v//")~openwrt$(PKG_RELEASE)' \
+	echo 'Tvheadend $(shell echo $(PKG_SOURCE_VERSION) | sed "s/^v//")~openwrt' \
 		> $(PKG_BUILD_DIR)/debian/changelog
 endef
 
