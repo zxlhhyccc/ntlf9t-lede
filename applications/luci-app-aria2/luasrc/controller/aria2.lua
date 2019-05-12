@@ -33,6 +33,7 @@ function status()
 
 	local status = {
 		running = (sys.call("pidof aria2c > /dev/null") == 0),
+		ariang = ipkg.installed("ariang"),
 		yaaw = ipkg.installed("yaaw"),
 		webui = ipkg.installed("webui-aria2")
 	}

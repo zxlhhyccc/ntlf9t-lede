@@ -133,6 +133,9 @@ msgstr "打开 WebUI-Aria2"
 msgid "Open YAAW"
 msgstr "打开 YAAW"
 
+msgid "Open ariang"
+msgstr "打开 ariang"
+
 msgid "Overall download limit"
 msgstr "全局下载限速"
 
