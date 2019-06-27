@@ -1,5 +1,5 @@
 <%#
-Copyright 2017-2018 Dirk Brenken (dev@brenken.org)
+Copyright 2018 Dirk Brenken (dev@brenken.org)
 This is free software, licensed under the Apache License, Version 2.0
 -%>
 
@@ -7,7 +7,7 @@ This is free software, licensed under the Apache License, Version 2.0
 local anonclass  = (not self.anonymous or self.sectiontitle) and "named" or "anonymous"
 -%>
 
-<%+adblock/adblock_css%>
+<%+banip/banip_css%>
 
 <div class="cbi-section" id="cbi-<%=self.config%>-<%=self.sectiontype%>">
 	<% if self.title then -%>
@@ -36,7 +36,7 @@ local anonclass  = (not self.anonymous or self.sectiontitle) and "named" or "ano
 					for k, node in ipairs(self.children) do
 						node:render(section, scope or {})
 					end
-					if not scope.cbid:match("adb_src_cat") then
+					if not scope.cbid:match("ban_src_cat") then
 				-%>
 					<div class="td cbi-value-field">&#160;</div>
 				<%- end -%>

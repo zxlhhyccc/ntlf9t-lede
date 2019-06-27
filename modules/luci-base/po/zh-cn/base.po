@@ -3898,6 +3898,11 @@ msgstr "核心"
 msgid "Thread"
 msgstr "线程"
 
+msgid "Problem feedback"
+msgstr "问题反馈"
+
+msgid "TG_investigation"
+msgstr "TG交流群"
 
 #~ msgid "Action"
 #~ msgstr "动作"

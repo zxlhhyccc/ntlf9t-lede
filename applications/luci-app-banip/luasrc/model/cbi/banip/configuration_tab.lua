@@ -1,10 +1,9 @@
--- Copyright 2017-2018 Dirk Brenken (dev@brenken.org)
+-- Copyright 2018 Dirk Brenken (dev@brenken.org)
 -- This is free software, licensed under the Apache License, Version 2.0
 
 local fs    = require("nixio.fs")
 local util  = require("luci.util")
-local uci   = require("luci.model.uci").cursor()
-local input = uci:get("adblock", "global", "adb_whitelist") or "/etc/adblock/adblock.whitelist"
+local input = "/etc/config/banip"
 
 if not fs.access(input) then
 	m = SimpleForm("error", nil, translate("Input file not found, please check your configuration."))
@@ -22,17 +21,15 @@ if fs.stat(input).size >= 102400 then
 	return m
 end
 
-m = SimpleForm("input", nil)
-m:append(Template("adblock/adblock_css"))
+m = SimpleForm("edit", nil)
+m:append(Template("banip/banip_css"))
 m.submit = translate("Save")
 m.reset = false
 
 s = m:section(SimpleSection, nil,
-	translatef("This form allows you to modify the content of the adblock whitelist (%s). ", input)
-	.. translate("Please add only one domain per line. Comments introduced with '#' are allowed - ip addresses, wildcards and regex are not."))
+	translate("This form allows you to modify the content of the main banIP configuration file (/etc/config/banip)."))
 
 f = s:option(TextValue, "data")
-f.datatype = "string"
 f.rows = 20
 f.rmempty = true
 
