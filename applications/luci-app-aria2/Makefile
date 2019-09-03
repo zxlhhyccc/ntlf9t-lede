@@ -10,18 +10,18 @@ PKG_NAME:=luci-app-aria2
 
 # Version == major.minor.patch
 # increase "minor" on new functionality and "patch" on patches/optimization
-PKG_VERSION:=1.0.2
+PKG_VERSION:=1.0.3
 
 # Release == build
 # increase on changes of translation files
-PKG_RELEASE:=3
+PKG_RELEASE:=4
 
 PKG_LICENSE:=Apache-2.0
 PKG_MAINTAINER:=Hsing-Wang Liao <kuoruan@gmail.com>
 
 # LuCI specific settings
 LUCI_TITLE:=LuCI Support for Aria2
-LUCI_DEPENDS:=+aria2
+LUCI_DEPENDS:=+aria2 +curl
 LUCI_PKGARCH:=all
 
 define Package/$(PKG_NAME)/config
