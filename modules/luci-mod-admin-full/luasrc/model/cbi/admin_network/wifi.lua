@@ -118,6 +118,7 @@ s.addremove = false
 s:tab("general", translate("General Setup"))
 s:tab("macfilter", translate("MAC-Filter"))
 s:tab("advanced", translate("Advanced Settings"))
+s:tab("rssi", translate("low RSSI disconnect"))
 
 --[[
 back = s:option(DummyValue, "_overview", translate("Overview"))
@@ -353,6 +354,7 @@ s:tab("general", translate("General Setup"))
 s:tab("encryption", translate("Wireless Security"))
 s:tab("macfilter", translate("MAC-Filter"))
 s:tab("advanced", translate("Advanced Settings"))
+s:tab("rssi", translate("low RSSI disconnect"))
 
 mode = s:taboption("general", ListValue, "mode", translate("Mode"))
 mode.override_values = true
@@ -492,8 +494,49 @@ if hwtype == "mac80211" then
 	ifname = s:taboption("advanced", Value, "ifname", translate("Interface name"), translate("Override default interface name"))
 	ifname.optional = true
 
-  disassoc_low_ack = s:taboption("general", Flag, "disassoc_low_ack", translate("Disassociate On Low Acknowledgement"),translate("Allow AP mode to disconnect STAs based on low ACK condition"))
-  disassoc_low_ack.default = disassoc_low_ack.enabled
+	disassoc_low_ack = s:taboption("general", Flag, "disassoc_low_ack", translate("Disassociate On Low Acknowledgement"),translate("Allow AP mode to disconnect STAs based on low ACK condition"))
+	disassoc_low_ack.default = disassoc_low_ack.enabled
+  
+  
+	signal_connect = s:taboption("rssi", Value, "signal_connect",
+		translate("signal_connect"),
+		translate("signal accessible value"))
+	signal_connect:depends({mode="ap"},{mode="ap-wds"},{mode="mesh"})
+	signal_connect.placeholder = "-60"
+	signal_connect = "range(-10,-90)"
+	signal_connect = true
+
+	signal_stay = s:taboption("rssi", Value, "signal_stay",
+		translate("signal_stay"),
+		translate("signal automatic disconnection value"))
+	signal_stay:depends({mode="ap"},{mode="ap-wds"},{mode="mesh"})
+	signal_stay.placeholder = "-70"
+	signal_stay = "range(-30,-90)"
+	signal_stay = true
+
+	signal_strikes = s:taboption("rssi", Value, "signal_strikes",
+		translate("signal_strikes"),
+		translate("signal strikes times"))
+	signal_strikes:depends({mode="ap"},{mode="ap-wds"},{mode="mesh"})
+	signal_strikes.placeholder = "3"
+	signal_strikes = "range(1,10)"
+	signal_strikes = true
+
+	signal_poll_time = s:taboption("rssi", Value, "signal_poll_time",
+		translate("signal_poll_time"),
+		translate("signal polling times"))
+	signal_poll_time:depends({mode="ap"},{mode="ap-wds"},{mode="mesh"})
+	signal_poll_time.placeholder = "5"
+	signal_poll_time = "range(3,10)"
+	signal_poll_time = true
+
+	signal_drop_reason = s:taboption("rssi", Value, "signal_drop_reason",
+		translate("signal_drop_reason"),
+		translate("signal drop reason"))
+	signal_drop_reason:depends({mode="ap"},{mode="ap-wds"},{mode="mesh"})
+	signal_drop_reason.placeholder = "3"
+	signal_drop_reason = "range(2,10)"
+	signal_drop_reason = true
 end
 
 

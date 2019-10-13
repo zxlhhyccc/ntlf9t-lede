@@ -4020,3 +4020,27 @@ msgstr "TG交流群"
 
 #~ msgid "VLAN Interface"
 #~ msgstr "VLAN 接口"
+
+msgid "low RSSI disconnect"
+msgstr "弱信号剔除"
+
+msgid "signal accessible value"
+msgstr "允许接入的信号值（不建议超过-80dbm，默认-60）"
+
+msgid "signal automatic disconnection value"
+msgstr "自动剔除弱信号（不建议超过-80dbm，默认-70）"
+
+msgid "signal strikes times"
+msgstr "信号检测次数（默认3）"
+
+msgid "signal polling times"
+msgstr "信号轮询次数（默认5）"
+
+msgid "signal_drop_reason"
+msgstr "信号检测次数（默认3）"
+
+msgid "WIFI Temperature"
+msgstr "无线芯片传感器"
+
+msgid "Use as Docker data (/opt)"
+msgstr "作为 Docker 数据分区使用 (/opt)"
